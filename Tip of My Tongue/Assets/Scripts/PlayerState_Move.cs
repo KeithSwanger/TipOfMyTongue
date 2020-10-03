@@ -44,7 +44,7 @@ public class PlayerState_Move : IPlayerState
         {
             if (player.citizenInteractingWith != null)
             {
-               if(player.citizenInteractingWith.riddle != null && !player.citizenInteractingWith.isSaved)
+               if(player.citizenInteractingWith.riddle != null && !player.citizenInteractingWith.isSaved && !player.citizenInteractingWith.isKilled)
                 {
                     player.SwitchState(new PlayerState_TextInput(this.player));
                     return false;

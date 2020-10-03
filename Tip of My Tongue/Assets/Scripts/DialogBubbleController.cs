@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 using TMPro;
 using UnityEngine;
 
@@ -16,11 +17,13 @@ public class DialogBubbleController : MonoBehaviour
 
     public string targetText = null;
 
+    public bool canDelete = false;
     public bool isFading = false;
     bool fadeAway = false;
     float fadeDelay = 0.35f;
     float fadeDelayTimer;
 
+    Vector2 fadeDirection;
 
     void Awake()
     {
@@ -29,8 +32,9 @@ public class DialogBubbleController : MonoBehaviour
     }
 
 
-    public void ShowMessage(string message, float charDelay = 0.05f, float fadeDelay = 0.35f)
+    public void ShowMessage(string message, float charDelay = 0.05f, float fadeDelay = 0.1f, float alpha = 1, bool isItalicized = false, bool randomizeFadeDirection = true) 
     {
+        canDelete = false;
         this.charDelay = charDelay;
         this.fadeDelay = fadeDelay;
         isFading = false;
@@ -39,7 +43,22 @@ public class DialogBubbleController : MonoBehaviour
         text.text = "";
         targetText = message;
         charDelayTimer = charDelay;
-        canvasGroup.alpha = 1f;
+        canvasGroup.alpha = alpha;
+
+        if (isItalicized)
+        {
+            text.fontStyle = FontStyles.Italic;
+        }
+
+        // randomize fade direction
+        if(randomizeFadeDirection)
+        {
+        fadeDirection = new Vector2(Random.Range(-3f, 3f), Random.Range(-3f, 3f));
+        }
+        else
+        {
+            fadeDirection = new Vector2(0f, 2f);
+        }
     }
 
     public void ForceFadeMessage()
@@ -59,11 +78,11 @@ public class DialogBubbleController : MonoBehaviour
         if (fadeAway)
         {
             canvasGroup.alpha -= Time.deltaTime;
-            transform.position = new Vector2(transform.position.x, transform.position.y + (2 * Time.deltaTime));
+            transform.position = new Vector2(transform.position.x + fadeDirection.x * Time.deltaTime, transform.position.y + fadeDirection.y * Time.deltaTime);
 
             if (canvasGroup.alpha <= 0f)
             {
-                GameObject.Destroy(this);
+                    GameObject.Destroy(this.gameObject);
             }
 
         }

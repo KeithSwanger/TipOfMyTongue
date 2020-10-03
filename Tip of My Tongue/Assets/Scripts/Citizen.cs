@@ -1,10 +1,13 @@
 ﻿using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class Citizen : MonoBehaviour
 {
+    Responses responses = new Responses();
     public GameObject DialogBubblePrefab;
     public float messageHeight = 2f;
 
@@ -15,6 +18,8 @@ public class Citizen : MonoBehaviour
     public string answerThatKilledMe = "";
     public string answerThatSavedMe = "";
 
+    private string previousHint = null;
+
     // Start is called before the first frame update
     public Riddle riddle = null;
     List<string> hints = new List<string>();
@@ -22,15 +27,15 @@ public class Citizen : MonoBehaviour
     float hintReleaseDelay = 1f;
     float hintReleaseTimer;
 
+
     DialogBubbleController currentDialogBubble = null;
 
 
     bool isNearPlayer = false;
     private void Awake()
     {
-        hintReleaseTimer = hintReleaseDelay;
 
-        riddle = Riddles.EasyRiddles[0];
+        hintReleaseTimer = hintReleaseDelay + Random.Range(-1f, 1f);
     }
 
     // Update is called once per frame
@@ -55,7 +60,7 @@ public class Citizen : MonoBehaviour
 
             if (isNearPlayer)
             {
-                Debug.Log("player is near!!!");
+
             }
 
             ShowRandomHint();
@@ -67,24 +72,31 @@ public class Citizen : MonoBehaviour
         if (hints.Count == 0)
         {
             hints = riddle.GetAllHints();
+            hints.Remove(previousHint);
         }
+
+        if(hints.Count == 1 && hints[0] == previousHint)
+        {
+            hints = riddle.GetAllHints();
+            hints.Remove(previousHint);
+        }
+
 
         if (currentDialogBubble == null || currentDialogBubble.isFading)
         {
 
             if (hints.Count > 0)
             {
-                DialogBubbleController dialogBubble = Instantiate(DialogBubblePrefab, new Vector3(transform.position.x, transform.position.y + messageHeight, 0), Quaternion.identity).GetComponent<DialogBubbleController>();
                 int removeIndex = Random.Range(0, hints.Count);
-                dialogBubble.ShowMessage(hints[removeIndex]);
+                CreateDialogBubble(hints[removeIndex], 0.05f, 0.0f, 1f, false, true);
+                previousHint = hints[removeIndex];
                 hints.RemoveAt(removeIndex);
 
-                currentDialogBubble = dialogBubble;
             }
         }
         else
         {
-            hintReleaseTimer = 0.2f;
+            hintReleaseTimer = 0.1f;
         }
 
 
@@ -92,14 +104,16 @@ public class Citizen : MonoBehaviour
 
     public void OnPlayerInteract()
     {
-        if (isSaved)
+        if (currentDialogBubble == null || currentDialogBubble.isFading)
         {
-            if(currentDialogBubble == null || currentDialogBubble.isFading)
+            if (isSaved)
             {
-                DialogBubbleController dialogBubble = Instantiate(DialogBubblePrefab, new Vector3(transform.position.x, transform.position.y + messageHeight, 0), Quaternion.identity).GetComponent<DialogBubbleController>();
-                dialogBubble.ShowMessage(Responses.GetRandomThanks(answerThatSavedMe), 0.08f, 0.45f);
+                CreateDialogBubble(responses.GetRandomThanks(), 0.08f, 0.45f, 1f, false, false);
+            }
+            else if (isKilled)
+            {
+                CreateDialogBubble(responses.GetRandomWrongResponse(), 0.1f, 0.5f, 0.35f, true, false);
 
-                currentDialogBubble = dialogBubble;
             }
         }
     }
@@ -112,17 +126,16 @@ public class Citizen : MonoBehaviour
             {
                 // Riddle correct! Let's do something!
                 isSaved = true;
-                if(currentDialogBubble != null)
+                if (currentDialogBubble != null)
                 {
                     currentDialogBubble.ForceFadeMessage();
                 }
 
-                DialogBubbleController dialogBubble = Instantiate(DialogBubblePrefab, new Vector3(transform.position.x, transform.position.y + messageHeight, 0), Quaternion.identity).GetComponent<DialogBubbleController>();
-                dialogBubble.ShowMessage($"...{answer}... that sounds familiar... hey, that's it! Thank you!", 0.1f);
-                currentDialogBubble = dialogBubble;
-
                 answerThatSavedMe = answer;
-                Responses.AddThanks(answerThatSavedMe);
+                responses.AddCorrectAnswerToResponses(answerThatSavedMe);
+
+                CreateDialogBubble(responses.GetRandomCorrectAnswerResponse(), 0.1f, 0.35f, 1, false, false);
+
             }
             else
             {
@@ -132,14 +145,26 @@ public class Citizen : MonoBehaviour
                 {
                     isKilled = true;
                     answerThatKilledMe = answer;
-                    Debug.Log($"YOU KILLED ME with the answer: {answerThatKilledMe}");
+                    responses.AddWrongAnswerToResponses(answerThatKilledMe);
+
+                    if(currentDialogBubble != null)
+                    {
+                        currentDialogBubble.ForceFadeMessage();
+                    }
                 }
             }
         }
     }
 
+    public void CreateDialogBubble(string message, float charDelay = 0.05f, float fadeDelay = 0.35f, float alpha = 1f, bool isItalicized = false, bool randomizeDirection = true)
+    {
+        DialogBubbleController dialogBubble = Instantiate(DialogBubblePrefab, new Vector3(transform.position.x, transform.position.y + messageHeight, 0), Quaternion.identity).GetComponent<DialogBubbleController>();
+        dialogBubble.ShowMessage(message, charDelay, fadeDelay, alpha, isItalicized, randomizeDirection);
+        currentDialogBubble = dialogBubble;
+    }
 
-    public void AssignRiddle(Riddle riddle)
+
+    public void SetRiddle(Riddle riddle)
     {
         this.riddle = riddle;
     }
@@ -161,14 +186,15 @@ public class Citizen : MonoBehaviour
         if (player != null)
         {
             isNearPlayer = false;
-            player.Interacted.AddListener(OnPlayerInteract);
+            player.Interacted.RemoveListener(OnPlayerInteract);
+            player.AnswerSubmitted.RemoveListener(OnPlayerSubmittedAnswer);
         }
     }
 }
 
-public static class Responses
+public class Responses
 {
-    public readonly static List<string> Thanks = new List<string>()
+    public List<string> Thanks = new List<string>()
     {
         "Thank you so much for saving me!",
         "You saved me!!!",
@@ -178,20 +204,54 @@ public static class Responses
         "How did you know what I was babbling about...",
         "My mind was in such a loop...",
         "I love life!!!",
-
     };
 
-    public static void AddThanks(string correctAnswer)
+    private List<string> CorrectAnswerResponses = new List<string>();
+    private List<string> WrongAnswerResponses = new List<string>();
+
+    public void AddCorrectAnswerToResponses(string correctAnswer)
+    {
+        AddThanks(correctAnswer);
+
+        CorrectAnswerResponses.AddRange(new List<string>()
+        {
+            $"...{correctAnswer}... that sounds familiar... hey, that's it! Thank you!",
+            $"{correctAnswer}!!! That's the word I was looking for! You're so smart!!!",
+        });
+    }
+
+    public void AddWrongAnswerToResponses(string wrongAnswer)
+    {
+        WrongAnswerResponses.AddRange(new List<string>()
+        {
+            $"{wrongAnswer}... that was not it...",
+            $"...I did this...",
+
+        });
+    }
+
+    
+
+
+    public void AddThanks(string correctAnswer)
     {
         Thanks.AddRange(new List<string>()
         {
             $"{correctAnswer}... {correctAnswer}... {correctAnswer}!!! I remember!!!",
-            $"do you ever just think about... {correctAnswer}",
+            $"do you ever just think about... {correctAnswer}... beautiful",
         });
     }
 
-    public static string GetRandomThanks(string correctAnswer)
+    public string GetRandomCorrectAnswerResponse()
+    {
+        return CorrectAnswerResponses[Random.Range(0, CorrectAnswerResponses.Count)];
+    }
+    public string GetRandomThanks()
     {
         return Thanks[Random.Range(0, Thanks.Count)];
+    }
+    public string GetRandomWrongResponse()
+    {
+        return WrongAnswerResponses[Random.Range(0, WrongAnswerResponses.Count)];
     }
 }

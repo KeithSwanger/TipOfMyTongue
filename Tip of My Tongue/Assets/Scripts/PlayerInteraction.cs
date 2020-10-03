@@ -19,21 +19,16 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log($"We in {collision.gameObject}");
-
-
         Citizen citizen = collision.gameObject.GetComponent<CitizenInteraction>()?.citizen;
 
         if (citizen != null)
         {
-            Debug.Log("We're interacting with a citizen!");
             player.citizenInteractingWith = citizen;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log($"We left {collision.gameObject}");
         player.citizenInteractingWith = null;
     }
 }

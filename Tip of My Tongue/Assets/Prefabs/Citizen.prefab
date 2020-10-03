@@ -91,6 +91,7 @@ MonoBehaviour:
   isSaved: 0
   isKilled: 0
   answerThatKilledMe: 
+  answerThatSavedMe: 
 --- !u!1 &4619156686566533170
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +234,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 8
+  m_Radius: 7
 --- !u!114 &4619156686590282686
 MonoBehaviour:
   m_ObjectHideFlags: 0

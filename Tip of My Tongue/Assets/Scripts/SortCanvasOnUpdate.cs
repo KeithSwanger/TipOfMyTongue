@@ -22,6 +22,6 @@ public class SortCanvasOnUpdate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        canvas.sortingOrder = -Mathf.FloorToInt(canvas.transform.position.y * 1000 - offset * canvas.transform.position.y * 1000 / 100);
+        canvas.sortingOrder = -Mathf.FloorToInt(canvas.transform.position.y * 1000 + offset * canvas.transform.position.y * 1000 / 100);
     }
 }
