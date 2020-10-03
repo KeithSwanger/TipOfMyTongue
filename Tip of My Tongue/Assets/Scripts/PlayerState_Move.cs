@@ -20,12 +20,15 @@ public class PlayerState_Move : IPlayerState
 
     public void Execute()
     {
-        ProcessInput();
+        if (!ProcessInput())
+        {
+            return;
+        }
 
         player.rb.velocity = moveVec * player.moveSpeed;
     }
 
-    private void ProcessInput()
+    private bool ProcessInput()
     {
         moveVec = Vector2.zero;
 
@@ -37,13 +40,14 @@ public class PlayerState_Move : IPlayerState
             moveVec = moveVec.normalized;
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))
         {
             if (player.citizenInteractingWith != null)
             {
-               if(player.citizenInteractingWith.riddle != null)
+               if(player.citizenInteractingWith.riddle != null && !player.citizenInteractingWith.isSaved)
                 {
                     player.SwitchState(new PlayerState_TextInput(this.player));
+                    return false;
                 }
                 else
                 {
@@ -51,11 +55,13 @@ public class PlayerState_Move : IPlayerState
                 }
             }
         }
+
+        return true;
     }
 
     public void Exit()
     {
-        throw new System.NotImplementedException();
+        player.rb.velocity = Vector2.zero;
     }
 
 }

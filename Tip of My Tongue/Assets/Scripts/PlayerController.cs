@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
 {
 
     public UnityEvent Interacted = new UnityEvent();
+    public StringSubmittedEvent AnswerSubmitted = new StringSubmittedEvent();
+
+    public PlayerInputBox playerInputBox;
 
     [HideInInspector]
     public Rigidbody2D rb;
@@ -21,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerInputBox = GetComponent<PlayerInputBox>();
     }
     // Start is called before the first frame update
     void Start()
@@ -43,7 +47,6 @@ public class PlayerController : MonoBehaviour
             this.playerState.Enter();
         }
 
-        // Should I do state execute here ? probably not
 
     }
 
@@ -55,4 +58,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    public class StringSubmittedEvent : UnityEvent<string>
+    {
+    }
 }
