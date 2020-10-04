@@ -4,9 +4,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Citizen : MonoBehaviour
 {
+    float baseAudioPitch;
+    public AudioClip letterSoundHectic;
+    public AudioClip letterSoundDead;
+    public AudioClip letterSoundThankful;
+    SoundMananger soundMananger;
     Responses responses = new Responses();
     public GameObject DialogBubblePrefab;
     public float messageHeight = 2f;
@@ -14,6 +20,9 @@ public class Citizen : MonoBehaviour
     public int health = 3;
     public bool isSaved = false;
     public bool isKilled = false;
+
+    public CitizenDiedEvent DiedEvent = new CitizenDiedEvent();
+    public CitizenSavedEvent SavedEvent = new CitizenSavedEvent();
 
     public string answerThatKilledMe = "";
     public string answerThatSavedMe = "";
@@ -34,7 +43,8 @@ public class Citizen : MonoBehaviour
     bool isNearPlayer = false;
     private void Awake()
     {
-
+        baseAudioPitch = Random.Range(0.6f, 1.7f);
+        soundMananger = SoundMananger.instance;
         hintReleaseTimer = hintReleaseDelay + Random.Range(-1f, 1f);
     }
 
@@ -58,12 +68,28 @@ public class Citizen : MonoBehaviour
         {
             hintReleaseTimer = hintReleaseDelay; // Reset timer
 
-            if (isNearPlayer)
+            ShowRandomHint();
+        }
+    }
+
+    private void OnLetterDisplayed()
+    {
+        if (isNearPlayer)
+        {
+            if (isSaved)
             {
+                soundMananger.PlaySoundEffect(letterSoundThankful, soundMananger.soundVolume, currentDialogBubble.transform.position, baseAudioPitch + Random.Range(-0.3f, 0.3f));
 
             }
+            else if (isKilled)
+            {
+                soundMananger.PlaySoundEffect(letterSoundDead, soundMananger.soundVolume, currentDialogBubble.transform.position, baseAudioPitch + Random.Range(-0.3f, 0.3f));
 
-            ShowRandomHint();
+            }
+            else
+            {
+                soundMananger.PlaySoundEffect(letterSoundHectic, soundMananger.soundVolume, currentDialogBubble.transform.position, baseAudioPitch + Random.Range(-0.3f, 0.3f));
+            }
         }
     }
 
@@ -75,7 +101,7 @@ public class Citizen : MonoBehaviour
             hints.Remove(previousHint);
         }
 
-        if(hints.Count == 1 && hints[0] == previousHint)
+        if (hints.Count == 1 && hints[0] == previousHint)
         {
             hints = riddle.GetAllHints();
             hints.Remove(previousHint);
@@ -136,6 +162,8 @@ public class Citizen : MonoBehaviour
 
                 CreateDialogBubble(responses.GetRandomCorrectAnswerResponse(), 0.1f, 0.35f, 1, false, false);
 
+                SavedEvent.Invoke(this);
+
             }
             else
             {
@@ -147,10 +175,12 @@ public class Citizen : MonoBehaviour
                     answerThatKilledMe = answer;
                     responses.AddWrongAnswerToResponses(answerThatKilledMe);
 
-                    if(currentDialogBubble != null)
+                    if (currentDialogBubble != null)
                     {
                         currentDialogBubble.ForceFadeMessage();
                     }
+
+                    DiedEvent.Invoke(this);
                 }
             }
         }
@@ -161,6 +191,8 @@ public class Citizen : MonoBehaviour
         DialogBubbleController dialogBubble = Instantiate(DialogBubblePrefab, new Vector3(transform.position.x, transform.position.y + messageHeight, 0), Quaternion.identity).GetComponent<DialogBubbleController>();
         dialogBubble.ShowMessage(message, charDelay, fadeDelay, alpha, isItalicized, randomizeDirection);
         currentDialogBubble = dialogBubble;
+
+        currentDialogBubble.LetterDisplayedEvent.AddListener(OnLetterDisplayed);
     }
 
 
@@ -192,6 +224,16 @@ public class Citizen : MonoBehaviour
     }
 }
 
+public class CitizenDiedEvent : UnityEvent<Citizen>
+{
+
+}
+
+public class CitizenSavedEvent : UnityEvent<Citizen>
+{
+
+}
+
 public class Responses
 {
     public List<string> Thanks = new List<string>()
@@ -217,6 +259,8 @@ public class Responses
         {
             $"...{correctAnswer}... that sounds familiar... hey, that's it! Thank you!",
             $"{correctAnswer}!!! That's the word I was looking for! You're so smart!!!",
+            $"{correctAnswer}! How could I have forgot... Thank you!",
+            $"{correctAnswer}... no that's not it... wait... {correctAnswer}... that is it! Thank you!",
         });
     }
 
@@ -225,12 +269,12 @@ public class Responses
         WrongAnswerResponses.AddRange(new List<string>()
         {
             $"{wrongAnswer}... that was not it...",
-            $"...I did this...",
+            $"...you did this...",
 
         });
     }
 
-    
+
 
 
     public void AddThanks(string correctAnswer)

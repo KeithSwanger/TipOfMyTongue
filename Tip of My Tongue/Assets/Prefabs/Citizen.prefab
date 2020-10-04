@@ -84,6 +84,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a95d6f440c9d14c9326c9fc331b362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  letterSoundHectic: {fileID: 8300000, guid: 95e48d2fe045a7242ad3e5ca612abd89, type: 3}
+  letterSoundDead: {fileID: 8300000, guid: f61413c80f30cc742b51cc9e0fc93cc6, type: 3}
+  letterSoundThankful: {fileID: 8300000, guid: babd77875cdf6e644ab24bf8097c5405, type: 3}
   DialogBubblePrefab: {fileID: 5433466380813793139, guid: de0aa7a2845ec7348ad2e887d7ee8354,
     type: 3}
   messageHeight: 2

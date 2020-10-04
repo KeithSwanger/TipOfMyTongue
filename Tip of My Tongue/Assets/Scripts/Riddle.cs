@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class Riddle
 {
+    public int difficulty;
     List<string> acceptedAnswers = new List<string>();
     List<string> hints = new List<string>();
 
-    public Riddle(List<string> answers, List<string> hints)
+    public Riddle(int difficulty, List<string> answers, List<string> hints)
     {
+        this.difficulty = difficulty;
         this.acceptedAnswers = answers;
         this.hints = hints;
     }

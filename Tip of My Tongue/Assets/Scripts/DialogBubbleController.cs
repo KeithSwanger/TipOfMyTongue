@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Timers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DialogBubbleController : MonoBehaviour
 {
+    public UnityEvent LetterDisplayedEvent;
+    public AudioClip textSound;
+    SoundMananger soundManager;
 
     public CanvasGroup canvasGroup;
     public TMP_Text text;
@@ -27,6 +31,7 @@ public class DialogBubbleController : MonoBehaviour
 
     void Awake()
     {
+        soundManager = SoundMananger.instance;
         text.text = "";
         canvasGroup.alpha = 1f;
     }
@@ -96,6 +101,8 @@ public class DialogBubbleController : MonoBehaviour
 
                 text.text += targetText[charPos];
                 charPos++;
+
+                LetterDisplayedEvent.Invoke();
             }
         }
         else

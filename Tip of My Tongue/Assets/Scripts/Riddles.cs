@@ -8,7 +8,7 @@ public static class Riddles
 {
     private readonly static List<Riddle> EasyRiddles = new List<Riddle>()
     {
-        new Riddle(
+        new Riddle(0,
             new List<string>()
             { 
                 "red"
@@ -20,7 +20,7 @@ public static class Riddles
                 "anger, anger, anger!",
                 "love"
             }),
-        new Riddle(
+        new Riddle(0,
             new List<string>()
             {
                 "blue",
@@ -33,7 +33,7 @@ public static class Riddles
                 "sadness"
                 
             }),
-        new Riddle(
+        new Riddle(0,
             new List<string>()
             {
                 "shirt",
@@ -50,7 +50,7 @@ public static class Riddles
                 "short sleeves",
                 "long sleeves",
             }),
-        new Riddle(
+        new Riddle(0,
             new List<string>()
             {
                 "riddle3easy",
@@ -61,7 +61,7 @@ public static class Riddles
                 "test hint riddle 3 easy",
                 "test hint 2 riddle 3 easy"
             }),
-        new Riddle(
+        new Riddle(0,
             new List<string>()
             {
                 "riddle4easy",
@@ -76,7 +76,7 @@ public static class Riddles
 
     private readonly static List<Riddle> MediumRiddles = new List<Riddle>()
     {
-        new Riddle(
+        new Riddle(1,
             new List<string>()
             {
                 "height",
@@ -89,7 +89,7 @@ public static class Riddles
                 "feet and inches",
                 "top of the mountain"
             }),
-        new Riddle(
+        new Riddle(1,
             new List<string>()
             {
                 "confusion",
@@ -98,14 +98,14 @@ public static class Riddles
             },
             new List<string>()
             {
-                "what i'm feeling right now",
+                "i'm feeling it right now",
                 "can't remember anything",
                 "who are you",
                 "who am i",
                 "where am i",
                 "what am i"
             }),
-        new Riddle(
+        new Riddle(1,
             new List<string>()
             {
                 "bath",
@@ -119,7 +119,7 @@ public static class Riddles
                 "soap and bubbles",
             }),
         
-        new Riddle(
+        new Riddle(1,
             new List<string>()
             {
                 "river",
@@ -132,7 +132,7 @@ public static class Riddles
                 "a creek all grown up",
                 "i went tubin' last week",
             }),
-        new Riddle(
+        new Riddle(1,
             new List<string>()
             {
                 "government",
@@ -147,7 +147,7 @@ public static class Riddles
                 "authority",
                 "legislation"
             }),
-        new Riddle(
+        new Riddle(1,
             new List<string>()
             {
                 "language",
@@ -160,7 +160,7 @@ public static class Riddles
                 "I've read the entire dictionary",
                 "Differs in many places",
             }),
-        new Riddle(
+        new Riddle(1,
             new List<string>()
             {
                 "menu",
@@ -174,7 +174,7 @@ public static class Riddles
                 "dang, that's expensive",
                 "lets try something new",
             }),
-        new Riddle(
+        new Riddle(1,
             new List<string>()
             {
                 "thought",
@@ -191,7 +191,7 @@ public static class Riddles
 
     private readonly static List<Riddle> HardRiddles = new List<Riddle>()
     {
-        new Riddle(
+        new Riddle(2,
             new List<string>()
             {
                 "riddle1hard",
@@ -202,7 +202,7 @@ public static class Riddles
                 "test hint riddle 1 hard",
                 "test hint 2 riddle 1 hard"
             }),
-        new Riddle(
+        new Riddle(2,
             new List<string>()
             {
                 "riddle2hard",
