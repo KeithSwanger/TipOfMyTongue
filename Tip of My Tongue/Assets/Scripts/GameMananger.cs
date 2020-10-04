@@ -3,14 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameMananger : MonoBehaviour
-{ 
+{
+    private static GameMananger _instance;
+    public static GameMananger instance
+    {
+        get
+        {
+            if(_instance == null)
+            {
+                _instance = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameMananger>();
+            }
+
+            return _instance;
+        }
+    }
+
     public AudioClip backgroundMusic;
     SoundMananger soundMananger;
 
     public CitizenManager citizenManager;
     public EndScreenController endScreenController;
+    public EscapeMenuController escapeMenu;
 
-    public bool isGameComplete = false;
+    public bool isGameComplete { get; set; } = false;
 
 
 
@@ -38,10 +53,15 @@ public class GameMananger : MonoBehaviour
         }
     }
 
+    public void EndGame()
+    {
+        this.endScreenController.ShowEndScreen(citizenManager.GetGameResults());
+    }
+
     void OnAllCitizensInteractedWith()
     {
         isGameComplete = true;
 
-        endScreenController.ShowEndScreen(citizenManager.GetGameResults());
+        //endScreenController.ShowEndScreen(citizenManager.GetGameResults());
     }
 }

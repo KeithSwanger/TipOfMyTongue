@@ -30,6 +30,13 @@ public class PlayerState_Move : IPlayerState
 
     private bool ProcessInput()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+
+            player.SwitchState(new PlayerState_EscapeMenuOpen(this.player));
+            return false;
+        }
+
         moveVec = Vector2.zero;
 
         moveVec.x = Input.GetAxisRaw("Horizontal");
@@ -42,17 +49,14 @@ public class PlayerState_Move : IPlayerState
 
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))
         {
-            if (player.citizenInteractingWith != null)
+            if (player.citizenInteractingWith != null && player.citizenInteractingWith.riddle != null && !player.citizenInteractingWith.isSaved && !player.citizenInteractingWith.isKilled)
             {
-               if(player.citizenInteractingWith.riddle != null && !player.citizenInteractingWith.isSaved && !player.citizenInteractingWith.isKilled)
-                {
-                    player.SwitchState(new PlayerState_TextInput(this.player));
-                    return false;
-                }
-                else
-                {
-                    player.Interacted.Invoke();
-                }
+                player.SwitchState(new PlayerState_TextInput(this.player));
+                return false;
+            }
+            else
+            {
+                player.Interacted.Invoke();
             }
         }
 

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
-
+    public GameMananger gameMananger;
     public UnityEvent Interacted = new UnityEvent();
     public StringSubmittedEvent AnswerSubmitted = new StringSubmittedEvent();
 
@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     private void Awake()
     {
+        gameMananger = GameMananger.instance;
         rb = GetComponent<Rigidbody2D>();
         playerInputBox = GetComponent<PlayerInputBox>();
     }
@@ -30,6 +31,11 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         SwitchState(new PlayerState_Move(this));
+    }
+
+    public void LockPlayerToInteraction()
+    {
+        SwitchState(new PlayerState_LockedInteraction(this));
     }
 
 
@@ -48,6 +54,11 @@ public class PlayerController : MonoBehaviour
         }
 
 
+    }
+
+    public void UnlockPlayer()
+    {
+        SwitchState(new PlayerState_Move(this));
     }
 
     private void Update()

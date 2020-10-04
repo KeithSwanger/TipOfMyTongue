@@ -6,7 +6,7 @@ public class SortCanvasOnUpdate : MonoBehaviour
 {
     public Canvas canvas = null;
 
-    public int offset = 0;
+    public int offset = 2;
 
 
     private void Awake()
@@ -22,6 +22,6 @@ public class SortCanvasOnUpdate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        canvas.sortingOrder = -Mathf.FloorToInt(canvas.transform.position.y * 1000 + offset * canvas.transform.position.y * 1000 / 100);
+        canvas.sortingOrder = -Mathf.FloorToInt((canvas.transform.position.y + offset) * 1000);
     }
 }

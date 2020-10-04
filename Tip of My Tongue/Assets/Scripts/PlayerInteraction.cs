@@ -19,11 +19,24 @@ public class PlayerInteraction : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Citizen citizen = collision.gameObject.GetComponent<CitizenInteraction>()?.citizen;
-
-        if (citizen != null)
+        if(collision.gameObject.GetComponent<CitizenInteraction>()?.citizen is Citizen citizen)
         {
             player.citizenInteractingWith = citizen;
+        }
+        else if(collision.gameObject.GetComponent<ConcernedCitizenInteraction>()?.concernedCitizen is ConcernedCitizen concernedCitizen)
+        {
+            if (concernedCitizen.isFirstInteraction)
+            {
+                player.SwitchState(new PlayerState_LockedInteraction(this.player));
+                concernedCitizen.InitialConversationOver.AddListener(player.UnlockPlayer);
+                concernedCitizen.StartInitialConversation();
+            }
+            else if (player.gameMananger.isGameComplete)
+            {
+                player.SwitchState(new PlayerState_LockedInteraction(this.player));
+                concernedCitizen.EndingConversationOver.AddListener(player.gameMananger.EndGame);
+                concernedCitizen.StartEndingConversation();
+            }
         }
     }
 

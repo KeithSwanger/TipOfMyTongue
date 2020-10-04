@@ -12,6 +12,8 @@ public class Citizen : MonoBehaviour
     public AudioClip letterSoundHectic;
     public AudioClip letterSoundDead;
     public AudioClip letterSoundThankful;
+
+    public AudioClip deathSoundEffect;
     SoundMananger soundMananger;
     Responses responses = new Responses();
     public GameObject DialogBubblePrefab;
@@ -43,6 +45,7 @@ public class Citizen : MonoBehaviour
     bool isNearPlayer = false;
     private void Awake()
     {
+        DiedEvent.AddListener(OnDeath);
         baseAudioPitch = Random.Range(0.6f, 1.7f);
         soundMananger = SoundMananger.instance;
         hintReleaseTimer = hintReleaseDelay + Random.Range(-1f, 1f);
@@ -126,6 +129,11 @@ public class Citizen : MonoBehaviour
         }
 
 
+    }
+
+    void OnDeath(Citizen c)
+    {
+        soundMananger.ForcePlaySoundEffect(deathSoundEffect, soundMananger.soundVolume, transform.position, Random.Range(0.75f, 1.2f));
     }
 
     public void OnPlayerInteract()
@@ -226,12 +234,10 @@ public class Citizen : MonoBehaviour
 
 public class CitizenDiedEvent : UnityEvent<Citizen>
 {
-
 }
 
 public class CitizenSavedEvent : UnityEvent<Citizen>
 {
-
 }
 
 public class Responses

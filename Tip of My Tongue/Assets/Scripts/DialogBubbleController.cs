@@ -29,6 +29,8 @@ public class DialogBubbleController : MonoBehaviour
 
     Vector2 fadeDirection;
 
+    public bool isFullMessageVisible = false;
+
     void Awake()
     {
         soundManager = SoundMananger.instance;
@@ -49,6 +51,8 @@ public class DialogBubbleController : MonoBehaviour
         targetText = message;
         charDelayTimer = charDelay;
         canvasGroup.alpha = alpha;
+        isFullMessageVisible = false;
+
 
         if (isItalicized)
         {
@@ -76,6 +80,14 @@ public class DialogBubbleController : MonoBehaviour
         isFading = true;
     }
 
+    public void ForceShowFullMessage()
+    {
+        charPos = targetText.Length;
+        text.text = targetText;
+        isFullMessageVisible = true;
+        LetterDisplayedEvent.Invoke();
+    }
+
 
     // Update is called once per frame
     void Update()
@@ -87,7 +99,7 @@ public class DialogBubbleController : MonoBehaviour
 
             if (canvasGroup.alpha <= 0f)
             {
-                    GameObject.Destroy(this.gameObject);
+                 GameObject.Destroy(this.gameObject);
             }
 
         }
@@ -103,6 +115,11 @@ public class DialogBubbleController : MonoBehaviour
                 charPos++;
 
                 LetterDisplayedEvent.Invoke();
+
+                if(text.text == targetText)
+                {
+                    isFullMessageVisible = true;
+                }
             }
         }
         else

@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playButton: {fileID: 699752756}
   mainSceneName: main
-  music: {fileID: 8300000, guid: 6d0c7538379714444862ff4045d60602, type: 3}
+  music: {fileID: 8300000, guid: eb4c2461cc961a14f8a1a1c1d058fefd, type: 3}
 --- !u!4 &431492361
 Transform:
   m_ObjectHideFlags: 0

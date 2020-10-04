@@ -10,8 +10,4 @@ public class CitizenInteraction : MonoBehaviour
     {
         citizen = GetComponentInParent<Citizen>();
     }
-    void Start()
-    {
-        
-    }
 }

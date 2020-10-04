@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35a37e8bef1d25b4ba20f735a4684b78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LetterDisplayedEvent:
+    m_PersistentCalls:
+      m_Calls: []
   textSound: {fileID: 8300000, guid: 54929314f76610040b0eca612c10e98e, type: 3}
   canvasGroup: {fileID: 5433466381249123791}
   text: {fileID: 5433466381157451598}
@@ -53,6 +56,7 @@ MonoBehaviour:
   targetText: 
   canDelete: 0
   isFading: 0
+  isFullMessageVisible: 0
 --- !u!1 &5433466381157451584
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
-  offset: 50
+  offset: -2
 --- !u!225 &5433466381249123791
 CanvasGroup:
   m_ObjectHideFlags: 0

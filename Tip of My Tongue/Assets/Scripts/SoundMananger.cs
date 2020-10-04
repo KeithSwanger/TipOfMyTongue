@@ -27,8 +27,23 @@ public class SoundMananger : MonoBehaviour
     AudioSource musicSource;
     List<AudioSource> audioSources = new List<AudioSource>();
 
-    public float musicVolume = 0.75f;
-    public float soundVolume = 0.75f;
+    public float soundVolume = 0.9f;
+    private float _musicVolume = 0.45f;
+    public float musicVolume
+    {
+        get
+        {
+            return _musicVolume;
+        }
+        set
+        {
+            if(musicSource != null)
+            {
+                musicSource.volume = value;
+            }
+        }
+    }
+    
     public bool isPlayingMusic = false;
 
 
@@ -93,7 +108,7 @@ public class SoundMananger : MonoBehaviour
         }
     }
 
-    public void ForcePlaySoundEffect(AudioClip soundEffect, float volume, Vector2 position)
+    public void ForcePlaySoundEffect(AudioClip soundEffect, float volume, Vector2 position, float pitch)
     {
         AudioSource source = null;
 
@@ -108,16 +123,16 @@ public class SoundMananger : MonoBehaviour
 
         if(source == null)
         {
-            AudioSource.PlayClipAtPoint(soundEffect, position, volume);
+            //AudioSource.PlayClipAtPoint(soundEffect, position, volume);
+            source = audioSources[Random.Range(0, audioSources.Count)];
         }
-        else
-        {
-            source.clip = soundEffect;
-            source.volume = volume;
-            source.gameObject.transform.position = position;
 
-            source.Play();
-        }
+        source.pitch = pitch;
+        source.clip = soundEffect;
+        source.volume = volume;
+        source.gameObject.transform.position = position;
+
+        source.Play();
 
     }
 
