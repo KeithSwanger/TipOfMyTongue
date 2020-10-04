@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4619156686429812353}
   - component: {fileID: 4619156686429812356}
   - component: {fileID: 4619156686429812359}
+  - component: {fileID: 4076224963775916144}
   m_Layer: 0
   m_Name: Citizen
   m_TagString: Untagged
@@ -96,6 +97,24 @@ MonoBehaviour:
   isKilled: 0
   answerThatKilledMe: 
   answerThatSavedMe: 
+--- !u!114 &4076224963775916144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4619156686429812378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119c13c0ca08c1045bd2b775b3699163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 4619156686566533180}
+  sprites:
+  - {fileID: 8348269105322113773, guid: c4d5c82dddd81bb47abd6d7d1e469795, type: 3}
+  - {fileID: -3657289940536744847, guid: c4d5c82dddd81bb47abd6d7d1e469795, type: 3}
+  frameRate: 3
+  playOnStart: 1
 --- !u!1 &4619156686566533170
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,6 +12,9 @@ public class PlayerController : MonoBehaviour
 
     public PlayerInputBox playerInputBox;
 
+    public SpriteAnimator idleAnimation;
+    public SpriteAnimator walkAnimation;
+
     [HideInInspector]
     public Rigidbody2D rb;
 
@@ -31,6 +34,18 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         SwitchState(new PlayerState_Move(this));
+    }
+
+    public void StartWalkAnimation()
+    {
+        idleAnimation.Stop();
+        walkAnimation.Play();
+    }
+
+    public void StartIdleAnimation()
+    {
+        walkAnimation.Stop();
+        idleAnimation.Play();
     }
 
     public void LockPlayerToInteraction()

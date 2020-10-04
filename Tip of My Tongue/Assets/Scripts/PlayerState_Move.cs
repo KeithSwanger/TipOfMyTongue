@@ -60,12 +60,22 @@ public class PlayerState_Move : IPlayerState
             }
         }
 
+        if(moveVec != Vector2.zero)
+        {
+            player.StartWalkAnimation();
+        }
+        else
+        {
+            player.StartIdleAnimation();
+        }
+
         return true;
     }
 
     public void Exit()
     {
         player.rb.velocity = Vector2.zero;
+        player.StartIdleAnimation();
     }
 
 }
