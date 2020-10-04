@@ -6,6 +6,12 @@ using UnityEngine;
 
 public static class Riddles
 {
+
+    /// <summary>
+    /// /////////////////////////////////////////////////////////////////
+    /// Easy Riddles
+    /// /////////////////////////////////////////////////////////////////
+    /// </summary>
     private readonly static List<Riddle> EasyRiddles = new List<Riddle>()
     {
         new Riddle(0,
@@ -205,6 +211,12 @@ public static class Riddles
 
     };
 
+
+    /// <summary>
+    /// /////////////////////////////////////////////////////////////////
+    /// Medium Riddles
+    /// /////////////////////////////////////////////////////////////////
+    /// </summary>
     private readonly static List<Riddle> MediumRiddles = new List<Riddle>()
     {
         new Riddle(1,
@@ -335,14 +347,13 @@ public static class Riddles
         new Riddle(1,
             new List<string>()
             {
-                "historian",
-                "historians"
+                "needle",
+                "needles"
             },
             new List<string>()
             {
-                "person who studies the past",
-                "expert",
-                "authority on the matter"
+                "has one eye",
+                "can poke yours out"
             }),
          new Riddle(1,
             new List<string>()
@@ -491,9 +502,102 @@ public static class Riddles
                 "keep track of how many things there are, one by one",
                 "learned very early in life"
             }),
+         new Riddle(1,
+            new List<string>()
+            {
+                "pew"
+            },
+            new List<string>()
+            {
+                "the sound of a deadly laser",
+                "where churchgoers sit"
+            }),
+         new Riddle(1,
+            new List<string>()
+            {
+                "cursor",
+                "cursors"
+            },
+            new List<string>()
+            {
+                "the mouse pointer on a computer",
+                "or is it someone who swears a lot..."
+            }),
+         new Riddle(1,
+            new List<string>()
+            {
+                "vacuum",
+                "vacuums"
+            },
+            new List<string>()
+            {
+                "a great way to clean a carpet",
+                "a great way to clear a spaceship"
+            }),
+         new Riddle(1,
+            new List<string>()
+            {
+                "stool",
+                "stools"
+            },
+            new List<string>()
+            {
+                "a handy wooden chair to sit on",
+                "a really smelly gathering of waste"
+            }),
+         new Riddle(1,
+            new List<string>()
+            {
+                "frost"
+            },
+            new List<string>()
+            {
+                "it has to be really cold outside",
+                "when the morning dew freezes",
+                "layered on car windows"
+            }),
+         new Riddle(1,
+            new List<string>()
+            {
+                "typewriter"
+            },
+            new List<string>()
+            {
+                "the grandfather of keyboards",
+                "ding!",
+                "really hard to erase..."
+            }),
+         new Riddle(1,
+            new List<string>()
+            {
+                "ludumdare",
+                "ld47",
+                "ludumdare47"
+            },
+            new List<string>()
+            {
+                "it took me three hours to decide on this game idea",
+                "my game turned out pretty close to how i planned it in my head, that's pretty cool",
+                "i've been up for over 26 hours... rookie numbers, i know...",
+                "answer hint: the best game jam",
+                "this is the last riddle i typed",
+                "wish i had more time to add more art",
+                "I would have liked to fill out the town a bit more",
+                "I'm not totally in love with the music I made",
+                "i hope your game turned out well!",
+                "i wish i had more time to add more riddles!!!",
+                "i'm really happy with how much i was able to accomplish this jam",
+                "have a nice day! thanks for playing my game!",
+            }),
+
 
     };
 
+    /// <summary>
+    /// /////////////////////////////////////////////////////////////////
+    /// Hard Riddles
+    /// /////////////////////////////////////////////////////////////////
+    /// </summary>
     private readonly static List<Riddle> HardRiddles = new List<Riddle>()
     {
         new Riddle(2,
@@ -566,15 +670,16 @@ public static class Riddles
             },
             new List<string>()
             {
-                "thing you do when you even when you don't want to",
+                "the things you have to do even when you don't want to",
                 "duty",
-                "accountable"
+                "accountable",
+                "accepting fault when you're to blame"
             }),
          new Riddle(2,
             new List<string>()
             {
                 "cabinet",
-                "cabinet"
+                "cabinets"
             },
             new List<string>()
             {
@@ -615,6 +720,30 @@ public static class Riddles
                 "circumstances make it possible to do something",
                 "lose yourself in the music... err... forget that"
             }),
+         new Riddle(2,
+            new List<string>()
+            {
+                "transition",
+                "transitions"
+            },
+            new List<string>()
+            {
+                "refocusing your life",
+                "fade out and fade in"
+            }),
+         new Riddle(2,
+            new List<string>()
+            {
+                "harmony",
+                "harmonies"
+            },
+            new List<string>()
+            {
+                "why a chord sounds really nice",
+                "when they all sing together"
+            }),
+
+
     };
 
     public static List<Riddle> GetEasyRiddles()
