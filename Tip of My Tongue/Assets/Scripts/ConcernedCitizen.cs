@@ -34,11 +34,11 @@ public class ConcernedCitizen : MonoBehaviour
     {
         "Help! I think there's something in the water!",
         "People here are forgetting words, and it's driving them crazy!",
-        "Their minds are stuck in a loop, trying to find the word they forgot",
+        "Their minds are stuck in a loop, trying to find the word that they forgot",
         "Something has infected their brains. Please help them!",
         "Listen to them, and speak the word they are trying to remember!",
         "Be careful though, I'm afraid something terrible could happen if you're wrong!",
-        "Come back here when you're done!"
+        "Come back here when you've saved everyone!"
     };
 
     int endingDialogIndex = 0;
@@ -64,13 +64,13 @@ public class ConcernedCitizen : MonoBehaviour
 
     List<string> midGameMessages = new List<string>()
     {
-        "Come back to me when you save everyone!",
+        "Come back to me when you have saved everyone!",
         "Good luck!",
         "Have you ever been to the... uhh... the... what was that called again... hah, just kidding",
         "Talk to everyone before coming back here",
         "What are they talking about...",
         "How could anyone forget such an easy word...",
-        ""
+        "So, how's your day going..."
     };
 
     float baseAudioPitch = 1f;
@@ -162,7 +162,7 @@ public class ConcernedCitizen : MonoBehaviour
                 {
                     if (introDialogIndex == introDialog.Count - 1)
                     {
-                        CreateDialogBubble(introDialog[introDialogIndex], 0.07f, 3f, 1f, false, false);
+                        CreateDialogBubble(introDialog[introDialogIndex], 0.07f, 2f, 1f, false, false);
                     }
                     else
                     {

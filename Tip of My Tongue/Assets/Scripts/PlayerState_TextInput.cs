@@ -50,7 +50,7 @@ public class PlayerState_TextInput : IPlayerState
             deleteTimer = 0.3f;
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             if(player.playerInputBox.GetPlayerInput() != string.Empty)
             {

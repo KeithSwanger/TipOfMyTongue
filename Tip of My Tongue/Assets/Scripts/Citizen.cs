@@ -8,6 +8,10 @@ using UnityEngine.Events;
 
 public class Citizen : MonoBehaviour
 {
+    public SortSpriteOnUpdate spriteSorter;
+    public SpriteAnimator idleAnimation;
+    public SpriteAnimator deathAnimation;
+
     float baseAudioPitch;
     public AudioClip letterSoundHectic;
     public AudioClip letterSoundDead;
@@ -58,8 +62,6 @@ public class Citizen : MonoBehaviour
         {
             UpdateRiddle();
         }
-
-
     }
 
 
@@ -74,6 +76,7 @@ public class Citizen : MonoBehaviour
             ShowRandomHint();
         }
     }
+
 
     private void OnLetterDisplayed()
     {
@@ -134,6 +137,10 @@ public class Citizen : MonoBehaviour
     void OnDeath(Citizen c)
     {
         soundMananger.ForcePlaySoundEffect(deathSoundEffect, soundMananger.soundVolume, transform.position, Random.Range(0.75f, 1.2f));
+
+        idleAnimation.Stop();
+        deathAnimation.PlayOnce();
+        spriteSorter.offset += 2;
     }
 
     public void OnPlayerInteract()
@@ -146,7 +153,7 @@ public class Citizen : MonoBehaviour
             }
             else if (isKilled)
             {
-                CreateDialogBubble(responses.GetRandomWrongResponse(), 0.1f, 0.5f, 0.35f, true, false);
+                CreateDialogBubble(responses.GetRandomWrongResponse(), 0.1f, 0.5f, 0.55f, true, false);
 
             }
         }
@@ -251,7 +258,7 @@ public class Responses
         "You're a genius!",
         "How did you know what I was babbling about...",
         "My mind was in such a loop...",
-        "I love life!!!",
+        "I love life!!!"
     };
 
     private List<string> CorrectAnswerResponses = new List<string>();
@@ -263,10 +270,13 @@ public class Responses
 
         CorrectAnswerResponses.AddRange(new List<string>()
         {
-            $"...{correctAnswer}... that sounds familiar... hey, that's it! Thank you!",
+            $"...{correctAnswer}... that sounds familiar... hey, you saved me! Thank you!",
+            $"{correctAnswer}!!! That's it!!! Thank you!!!",
             $"{correctAnswer}!!! That's the word I was looking for! You're so smart!!!",
-            $"{correctAnswer}! How could I have forgot... Thank you!",
+            $"{correctAnswer}!!! How could I have forgot... Thank you!",
             $"{correctAnswer}... no that's not it... wait... {correctAnswer}... that is it! Thank you!",
+            $"{correctAnswer}... heh, must have slipped my mind. Thanks, bud",
+            $"How could I have forgotten {correctAnswer}... thanks!",
         });
     }
 
@@ -276,7 +286,9 @@ public class Responses
         {
             $"{wrongAnswer}... that was not it...",
             $"...you did this...",
-
+            $"...why did you do this to me...",
+            "I had a family",
+            $"{wrongAnswer}... was that the best you could think of..."
         });
     }
 
@@ -289,6 +301,7 @@ public class Responses
         {
             $"{correctAnswer}... {correctAnswer}... {correctAnswer}!!! I remember!!!",
             $"do you ever just think about... {correctAnswer}... beautiful",
+            $"just saying {correctAnswer} cures brain eating viruses... who knew... thanks again!",
         });
     }
 

@@ -9,10 +9,12 @@ public class SpriteAnimator : MonoBehaviour
     public Sprite[] sprites;
     public float frameRate = 12;
     public bool playOnStart = false;
+    public bool onlyPlayOnce = false;
 
     private int currentFrame = 0;
 
     private bool animate = false;
+    private bool animationHasPlayed = false;
 
     private float frameLength;
 
@@ -21,7 +23,7 @@ public class SpriteAnimator : MonoBehaviour
 
     private void Awake()
     {
-        if(spriteRenderer == null)
+        if (spriteRenderer == null)
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
         }
@@ -40,7 +42,11 @@ public class SpriteAnimator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (animate)
+        if (onlyPlayOnce && animationHasPlayed)
+        {
+            // Do nothing because the last frame is showing
+        }
+        else if (animate)
         {
             UpdateAnimation();
         }
@@ -65,48 +71,32 @@ public class SpriteAnimator : MonoBehaviour
 
         if (currentFrame >= sprites.Length)
         {
-            currentFrame = 0;
+            animationHasPlayed = true;
+            
+            if(onlyPlayOnce)
+            {
+                currentFrame = sprites.Length - 1;
+            }
+            else
+            {
+                currentFrame = 0;
+            }
+
         }
     }
 
-    public void GoToFrame(int frame)
-    {
-        if (frame >= sprites.Length)
-        {
-            return;
-        }
-
-        Stop();
-        currentFrame = frame;
-        spriteRenderer.sprite = sprites[frame];
-    }
-
-    public void SetFrameToPercentage(float percent)
-    {
-        if (percent < 0f || percent > 1f)
-        {
-            return;
-        }
-
-        Stop();
-
-        int frame = (int)((sprites.Length - 1) * percent);
-        spriteRenderer.sprite = sprites[frame];
-        currentFrame = frame;
-    }
 
     public void Play()
     {
         animate = true;
     }
 
-    public void PlayFromRandom()
+    public void PlayOnce()
     {
-        currentFrame = UnityEngine.Random.Range(0, sprites.Length);
-
         animate = true;
-
+        onlyPlayOnce = true;
     }
+
 
     public void Stop()
     {

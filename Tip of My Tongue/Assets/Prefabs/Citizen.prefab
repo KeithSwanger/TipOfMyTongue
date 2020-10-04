@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4619156686429812356}
   - component: {fileID: 4619156686429812359}
   - component: {fileID: 4076224963775916144}
+  - component: {fileID: 1873825863}
   m_Layer: 0
   m_Name: Citizen
   m_TagString: Untagged
@@ -85,6 +86,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51a95d6f440c9d14c9326c9fc331b362, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteSorter: {fileID: 4619156686566533183}
+  idleAnimation: {fileID: 4076224963775916144}
+  deathAnimation: {fileID: 1873825863}
   letterSoundHectic: {fileID: 8300000, guid: 95e48d2fe045a7242ad3e5ca612abd89, type: 3}
   letterSoundDead: {fileID: 8300000, guid: f61413c80f30cc742b51cc9e0fc93cc6, type: 3}
   letterSoundThankful: {fileID: 8300000, guid: babd77875cdf6e644ab24bf8097c5405, type: 3}
@@ -115,6 +119,33 @@ MonoBehaviour:
   - {fileID: -3657289940536744847, guid: c4d5c82dddd81bb47abd6d7d1e469795, type: 3}
   frameRate: 3
   playOnStart: 1
+  onlyPlayOnce: 0
+--- !u!114 &1873825863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4619156686429812378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119c13c0ca08c1045bd2b775b3699163, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 4619156686566533180}
+  sprites:
+  - {fileID: 1556421857677545693, guid: 8ec11045633e93a4eb39ae8a70cc7bc0, type: 3}
+  - {fileID: 4996944310872800640, guid: 8ec11045633e93a4eb39ae8a70cc7bc0, type: 3}
+  - {fileID: -2487894190353972557, guid: 8ec11045633e93a4eb39ae8a70cc7bc0, type: 3}
+  - {fileID: 8349292104077209029, guid: 8ec11045633e93a4eb39ae8a70cc7bc0, type: 3}
+  - {fileID: -8778823571710174362, guid: 8ec11045633e93a4eb39ae8a70cc7bc0, type: 3}
+  - {fileID: -7938433922643398247, guid: 8ec11045633e93a4eb39ae8a70cc7bc0, type: 3}
+  - {fileID: -6058525263548256771, guid: 8ec11045633e93a4eb39ae8a70cc7bc0, type: 3}
+  - {fileID: 1374872677050309999, guid: 8ec11045633e93a4eb39ae8a70cc7bc0, type: 3}
+  - {fileID: -6470298292998407737, guid: 8ec11045633e93a4eb39ae8a70cc7bc0, type: 3}
+  frameRate: 12
+  playOnStart: 0
+  onlyPlayOnce: 1
 --- !u!1 &4619156686566533170
 GameObject:
   m_ObjectHideFlags: 0

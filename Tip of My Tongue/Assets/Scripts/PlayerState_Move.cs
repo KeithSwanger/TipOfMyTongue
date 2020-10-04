@@ -47,7 +47,7 @@ public class PlayerState_Move : IPlayerState
             moveVec = moveVec.normalized;
         }
 
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKey(KeyCode.KeypadEnter))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
             if (player.citizenInteractingWith != null && player.citizenInteractingWith.riddle != null && !player.citizenInteractingWith.isSaved && !player.citizenInteractingWith.isKilled)
             {

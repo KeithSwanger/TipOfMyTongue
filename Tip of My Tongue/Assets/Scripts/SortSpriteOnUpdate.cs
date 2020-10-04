@@ -21,6 +21,6 @@ public class SortSpriteOnUpdate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        sr.sortingOrder = -Mathf.FloorToInt(gameObject.transform.position.y * 1000);
+        sr.sortingOrder = -Mathf.FloorToInt((gameObject.transform.position.y + offset) * 1000);
     }
 }
