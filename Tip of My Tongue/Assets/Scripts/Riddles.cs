@@ -448,7 +448,9 @@ public static class Riddles
                 "elevator",
                 "elevators",
                 "escalator",
-                "escalators"
+                "escalators",
+                "elevate",
+                "escalate"
             },
             new List<string>()
             {
@@ -487,7 +489,7 @@ public static class Riddles
             },
             new List<string>()
             {
-                "the book that you read, but not for fun",
+                "the thing that you read, but not for fun",
                 "educational",
                 "why did mine cost four hundred dollars"
             }),

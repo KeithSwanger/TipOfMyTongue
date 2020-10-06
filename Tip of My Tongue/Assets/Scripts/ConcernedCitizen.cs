@@ -16,7 +16,7 @@ public class ConcernedCitizen : MonoBehaviour
     public UnityEvent EndingConversationOver = new UnityEvent();
     public bool isEndingConversation = false;
 
-    bool showHelpMessage = true;
+    public bool showHelpMessage = true;
     float helpMessageDelay = 3f;
     float helpMessageTimer;
 
