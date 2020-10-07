@@ -301,7 +301,7 @@ public class Responses
         {
             $"{correctAnswer}... {correctAnswer}... {correctAnswer}!!! I remember!!!",
             $"do you ever just think about... {correctAnswer}... beautiful",
-            $"just saying '{correctAnswer}' cures brain eating viruses... who knew... thanks again!",
+            $"just saying \'{correctAnswer}\' cures brain eating viruses... who knew... thanks again!",
         });
     }
 

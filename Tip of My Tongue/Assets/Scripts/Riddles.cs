@@ -253,6 +253,8 @@ public static class Riddles
             {
                 "bath",
                 "baths",
+                "bathtub",
+                "bathtubs"
             },
             new List<string>()
             {
@@ -574,7 +576,9 @@ public static class Riddles
             {
                 "ludumdare",
                 "ld47",
-                "ludumdare47"
+                "ludumdare47",
+                "keith",
+                "keithswanger"
             },
             new List<string>()
             {
@@ -606,7 +610,8 @@ public static class Riddles
             new List<string>()
             {
                 "assumption",
-                "assumptions"
+                "assumptions",
+                "assume"
             },
             new List<string>()
             {
@@ -629,7 +634,10 @@ public static class Riddles
         new Riddle(2,
             new List<string>()
             {
-                "equipment"
+                "equipment",
+                "equipments",
+                "inventory",
+                "inventories"
             },
             new List<string>()
             {
@@ -655,7 +663,9 @@ public static class Riddles
                 "advertisement",
                 "advertisements",
                 "advertise",
-                "advertises"
+                "advertises",
+                "ad",
+                "ads"
             },
             new List<string>()
             {

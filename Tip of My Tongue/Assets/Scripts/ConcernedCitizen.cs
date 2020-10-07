@@ -230,6 +230,7 @@ public class ConcernedCitizen : MonoBehaviour
     public void StartEndingConversation()
     {
         isEndingConversation = true;
+        OnPlayerInteract();
     }
 
 }
